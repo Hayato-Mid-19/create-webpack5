@@ -1,5 +1,8 @@
 const path = require("path");
 const outputPath = path.resolve(__dirname, 'public');
+
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -32,14 +35,21 @@ module.exports = {
         }
       },
       {
-        test: /\.m?js$/,
+        test: /\.m?jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env']
+            presets: [
+              '@babel/preset-env',
+              // "@babel/preset-react"
+            ]
           }
         }
+      },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
       }
     ]
   },
@@ -52,5 +62,11 @@ module.exports = {
     port: 9000,
     hot: true,
     watchFiles: ["src/","public/"],
-  }
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: './src/index.html',
+      filename: './index.html'
+    })
+  ]
 }
