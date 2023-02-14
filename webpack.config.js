@@ -1,9 +1,10 @@
-const path = require("path")
-const outputPath = path.resolve(__dirname, 'public')
+const path = require("path");
+const outputPath = path.resolve(__dirname, 'public');
 
-const HtmlWebPackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserPlugin = require("terser-webpack-plugin")
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
   entry: './src/index.js',
@@ -77,7 +78,8 @@ module.exports = {
             drop_console: true,
           }
         }
-      })
+      }),
+      new CssMinimizerPlugin(),
     ],
   },
   performance: {
