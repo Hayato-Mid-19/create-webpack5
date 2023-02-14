@@ -1,8 +1,9 @@
-const path = require("path");
-const outputPath = path.resolve(__dirname, 'public');
+const path = require("path")
+const outputPath = path.resolve(__dirname, 'public')
 
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const TerserPlugin = require("terser-webpack-plugin")
 
 module.exports = {
   entry: './src/index.js',
@@ -65,6 +66,22 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css'
-    })
-  ]
+    }),
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          }
+        }
+      })
+    ],
+  },
+  performance: {
+    maxEntrypointSize: 500000,
+    maxAssetSize: 500000,
+  },
 }
