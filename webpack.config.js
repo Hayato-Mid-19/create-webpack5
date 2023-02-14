@@ -86,4 +86,5 @@ module.exports = {
     maxEntrypointSize: 500000,
     maxAssetSize: 500000,
   },
+  devtool: 'eval-source-map'
 }
